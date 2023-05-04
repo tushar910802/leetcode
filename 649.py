@@ -1,0 +1,13 @@
+class Solution:
+    def predictPartyVictory(self, senate: str) -> str:
+        n = len(senate)
+        qr = collections.deque([i for i, c in enumerate(senate) if c == "R"])
+        qd = collections.deque([i for i, c in enumerate(senate) if c == "D"])
+        while qr and qd:
+            if qr[0] < qd[0]:
+                qd.popleft()
+                qr.append(qr.popleft() + n)
+            else:
+                qr.popleft()
+                qd.append(qd.popleft() + n)
+        return "Radiant" if qr else "Dire"
